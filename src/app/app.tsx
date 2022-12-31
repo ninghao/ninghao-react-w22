@@ -1,9 +1,9 @@
-const App = () => {
-  const name = '宁皓网';
+import AppHeader from './components/app-header';
 
+const App = () => {
   const element = (
     <div className="container">
-      <h1 className="title">{name}</h1>
+      <AppHeader />
     </div>
   );
 
