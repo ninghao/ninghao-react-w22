@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, MouseEvent } from 'react';
 
 type AppHeaderProps = {
   name: string;
@@ -9,26 +9,12 @@ type AppHeaderState = {
 };
 
 class AppHeader extends Component<AppHeaderProps, AppHeaderState> {
-  timer?: number;
-
   constructor(props: AppHeaderProps) {
     super(props);
 
     this.state = {
       emoji: '🌴',
     };
-  }
-
-  componentDidMount() {
-    // this.timer = window.setInterval(() => this.changeEmoji(), 3000);
-  }
-
-  componentWillUnmount() {
-    // window.clearInterval(this.timer);
-  }
-
-  componentDidUpdate() {
-    console.log('AppHeader: componentDidUpdate', this.state.emoji);
   }
 
   // state: AppHeaderState = {
@@ -39,13 +25,15 @@ class AppHeader extends Component<AppHeaderProps, AppHeaderState> {
     name: '宁皓网',
   };
 
-  changeEmoji() {
+  changeEmoji = (event: MouseEvent) => {
+    console.log('点击标题', event);
+
     this.setState((state, _) => {
       return {
         emoji: state.emoji === '🌴' ? '🏕' : '🌴',
       };
     });
-  }
+  };
 
   render() {
     const { name } = this.props;
@@ -53,7 +41,11 @@ class AppHeader extends Component<AppHeaderProps, AppHeaderState> {
 
     return (
       <div className="app-header">
-        <h1 className="title" style={{ cursor: 'pointer', fontSize: '24px' }}>
+        <h1
+          onClick={this.changeEmoji}
+          className="title"
+          style={{ cursor: 'pointer', fontSize: '24px' }}
+        >
           {name} {emoji}
         </h1>
       </div>
