@@ -1,16 +1,24 @@
+import { Component } from 'react';
+
 type AppHeaderProps = {
   name: string;
 };
 
-const AppHeader = (props: AppHeaderProps) => {
-  const { name } = props;
+class AppHeader extends Component<AppHeaderProps> {
+  static defaultProps = {
+    name: '宁皓网',
+  };
 
-  return (
-    <div className="app-header">
-      <h1 className="title">{name}</h1>
-    </div>
-  );
-};
+  render() {
+    const { name } = this.props;
+
+    return (
+      <div className="app-header">
+        <h1 className="title">{name}</h1>
+      </div>
+    );
+  }
+}
 
 AppHeader.defaultProps = {
   name: '宁皓网',
