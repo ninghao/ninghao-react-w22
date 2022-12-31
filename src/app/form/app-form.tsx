@@ -10,7 +10,7 @@ type AppFormProps = {};
  * 状态类型
  */
 type AppFormState = {
-  content: string;
+  checked: boolean;
 };
 
 /**
@@ -26,7 +26,7 @@ class AppForm extends Component<AppFormProps, AppFormState> {
    * 组件状态
    */
   state: AppFormState = {
-    content: '',
+    checked: false,
   };
 
   onSubmitForm = (event: FormEvent) => {
@@ -34,8 +34,8 @@ class AppForm extends Component<AppFormProps, AppFormState> {
     console.log(this.state);
   };
 
-  onContentChange = (event: FormEvent<HTMLTextAreaElement>) => {
-    this.setState({ content: event.currentTarget.value });
+  onCheckboxChange = (event: FormEvent<HTMLInputElement>) => {
+    this.setState({ checked: event.currentTarget.checked });
   };
 
   /**
@@ -46,14 +46,14 @@ class AppForm extends Component<AppFormProps, AppFormState> {
       <div>
         <form onSubmit={this.onSubmitForm}>
           <div>
-            <textarea
-              value={this.state.content}
-              onChange={this.onContentChange}
-              placeholder="写点东西"
-            ></textarea>
+            <input
+              type="checkbox"
+              checked={this.state.checked}
+              onChange={this.onCheckboxChange}
+            />
           </div>
+          <pre>→ State: {JSON.stringify(this.state)}</pre>
           <input type="submit" value="提交" />
-          <span>→ Content: {this.state.content}</span>
         </form>
       </div>
     );
