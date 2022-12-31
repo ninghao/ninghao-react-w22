@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import AppCard from '../../app/components/app-card';
 
 /**
  * 属性类型
@@ -56,9 +57,9 @@ class PostIndex extends Component<PostIndexProps, PostIndexState> {
   render() {
     const posts = this.state.postList.map((post) => {
       return (
-        <div key={post.id}>
+        <AppCard key={post.id}>
           {post.content} - <small>{post.author}</small>
-        </div>
+        </AppCard>
       );
     });
 
