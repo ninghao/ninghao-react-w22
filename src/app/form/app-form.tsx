@@ -10,7 +10,7 @@ type AppFormProps = {};
  * 状态类型
  */
 type AppFormState = {
-  items: Array<string>;
+  item: string;
 };
 
 /**
@@ -26,7 +26,7 @@ class AppForm extends Component<AppFormProps, AppFormState> {
    * 组件状态
    */
   state: AppFormState = {
-    items: [],
+    item: '黑虎泉',
   };
 
   onSubmitForm = (event: FormEvent) => {
@@ -37,21 +37,13 @@ class AppForm extends Component<AppFormProps, AppFormState> {
   onChange = ({
     currentTarget: { value, checked },
   }: FormEvent<HTMLInputElement>) => {
-    const items = new Set(this.state.items);
-
-    if (checked) {
-      items.add(value);
-    } else {
-      items.delete(value);
-    }
-
     this.setState({
-      items: Array.from(items),
+      item: value,
     });
   };
 
   isChecked = (currentItem: string) => {
-    return this.state.items.some((item) => item === currentItem);
+    return this.state.item === currentItem;
   };
 
   parks = [
@@ -69,9 +61,9 @@ class AppForm extends Component<AppFormProps, AppFormState> {
         <form onSubmit={this.onSubmitForm}>
           <div>
             {this.parks.map((item) => (
-              <label>
+              <label key={item.id}>
                 <input
-                  type="checkbox"
+                  type="radio"
                   id={`tag-${item.id}`}
                   onChange={this.onChange}
                   checked={this.isChecked(item.value)}
