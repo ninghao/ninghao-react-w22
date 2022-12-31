@@ -9,7 +9,9 @@ type AppFormProps = {};
 /**
  * 状态类型
  */
-type AppFormState = {};
+type AppFormState = {
+  content: string;
+};
 
 /**
  * 组件
@@ -23,10 +25,17 @@ class AppForm extends Component<AppFormProps, AppFormState> {
   /**
    * 组件状态
    */
-  state: AppFormState = {};
+  state: AppFormState = {
+    content: '',
+  };
 
   onSubmitForm = (event: FormEvent) => {
     event.preventDefault();
+    console.log(this.state);
+  };
+
+  onContentChange = (event: FormEvent<HTMLInputElement>) => {
+    this.setState({ content: event.currentTarget.value });
   };
 
   /**
@@ -36,8 +45,14 @@ class AppForm extends Component<AppFormProps, AppFormState> {
     return (
       <div>
         <form onSubmit={this.onSubmitForm}>
-          <input type="text" name="content" />
+          <input
+            type="text"
+            name="content"
+            value={this.state.content}
+            onChange={this.onContentChange}
+          />
           <input type="submit" value="提交" />
+          <span>→ Content: {this.state.content}</span>
         </form>
       </div>
     );
