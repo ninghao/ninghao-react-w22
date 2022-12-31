@@ -6,6 +6,7 @@ type AppHeaderProps = {
 
 type AppHeaderState = {
   emoji: string;
+  isLoggedIn: boolean;
 };
 
 class AppHeader extends Component<AppHeaderProps, AppHeaderState> {
@@ -14,8 +15,17 @@ class AppHeader extends Component<AppHeaderProps, AppHeaderState> {
 
     this.state = {
       emoji: '🌴',
+      isLoggedIn: false,
     };
   }
+
+  login = () => {
+    this.setState({ isLoggedIn: true });
+  };
+
+  logout = () => {
+    this.setState({ isLoggedIn: false });
+  };
 
   // state: AppHeaderState = {
   //   emoji: '🌴',
@@ -37,7 +47,10 @@ class AppHeader extends Component<AppHeaderProps, AppHeaderState> {
 
   render() {
     const { name } = this.props;
-    const { emoji } = this.state;
+    const { emoji, isLoggedIn } = this.state;
+
+    const loginAction = <button onClick={this.login}>登录</button>;
+    const logoutAction = <button onClick={this.logout}>退出</button>;
 
     return (
       <div className="app-header">
@@ -48,6 +61,10 @@ class AppHeader extends Component<AppHeaderProps, AppHeaderState> {
         >
           {name} {emoji}
         </h1>
+        <div className="content">
+          {isLoggedIn && <div>你好，开发者！</div>}
+          {isLoggedIn ? logoutAction : loginAction}
+        </div>
       </div>
     );
   }
