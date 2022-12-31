@@ -9,21 +9,31 @@ type AppHeaderState = {
 };
 
 class AppHeader extends Component<AppHeaderProps, AppHeaderState> {
-  // constructor(props: AppHeaderProps) {
-  //   super(props);
+  constructor(props: AppHeaderProps) {
+    super(props);
 
-  //   this.state = {
-  //     emoji: '🌴',
-  //   };
-  // }
+    this.state = {
+      emoji: '🌴',
+    };
 
-  state: AppHeaderState = {
-    emoji: '🌴',
-  };
+    window.setInterval(() => this.changeEmoji(), 3000);
+  }
+
+  // state: AppHeaderState = {
+  //   emoji: '🌴',
+  // };
 
   static defaultProps = {
     name: '宁皓网',
   };
+
+  changeEmoji() {
+    this.setState((state, _) => {
+      return {
+        emoji: state.emoji === '🌴' ? '🏕' : '🌴',
+      };
+    });
+  }
 
   render() {
     const { name } = this.props;
