@@ -1,4 +1,5 @@
 import { Component, MouseEvent } from 'react';
+import AppButton from 'app/components/app-button';
 import './app-header.css';
 
 type AppHeaderProps = {
@@ -50,8 +51,17 @@ class AppHeader extends Component<AppHeaderProps, AppHeaderState> {
     const { name } = this.props;
     const { emoji, isLoggedIn } = this.state;
 
-    const loginAction = <button onClick={this.login}>登录</button>;
-    const logoutAction = <button onClick={this.logout}>退出</button>;
+    const loginAction = (
+      <AppButton variant="primary" onClick={this.login}>
+        登录
+      </AppButton>
+    );
+
+    const logoutAction = (
+      <AppButton variant="bordered" onClick={this.logout}>
+        退出
+      </AppButton>
+    );
 
     return (
       <div className="app-header">
