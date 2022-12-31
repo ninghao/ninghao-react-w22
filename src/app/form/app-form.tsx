@@ -34,9 +34,7 @@ class AppForm extends Component<AppFormProps, AppFormState> {
     console.log(this.state);
   };
 
-  onChange = ({
-    currentTarget: { value, checked },
-  }: FormEvent<HTMLInputElement>) => {
+  onChange = ({ currentTarget: { value } }: FormEvent<HTMLSelectElement>) => {
     this.setState({
       item: value,
     });
@@ -60,18 +58,13 @@ class AppForm extends Component<AppFormProps, AppFormState> {
       <div>
         <form onSubmit={this.onSubmitForm}>
           <div>
-            {this.parks.map((item) => (
-              <label key={item.id}>
-                <input
-                  type="radio"
-                  id={`tag-${item.id}`}
-                  onChange={this.onChange}
-                  checked={this.isChecked(item.value)}
-                  value={item.value}
-                />
-                {item.value}
-              </label>
-            ))}
+            <select value={this.state.item} onChange={this.onChange}>
+              {this.parks.map((item) => (
+                <option key={item.id} value={item.value}>
+                  {item.value}
+                </option>
+              ))}
+            </select>
           </div>
           <pre>→ State: {JSON.stringify(this.state)}</pre>
           <input type="submit" value="提交" />
