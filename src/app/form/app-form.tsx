@@ -10,7 +10,7 @@ type AppFormProps = {};
  * 状态类型
  */
 type AppFormState = {
-  item: string;
+  fileList: FileList | null;
 };
 
 /**
@@ -26,7 +26,7 @@ class AppForm extends Component<AppFormProps, AppFormState> {
    * 组件状态
    */
   state: AppFormState = {
-    item: '黑虎泉',
+    fileList: null,
   };
 
   onSubmitForm = (event: FormEvent) => {
@@ -34,14 +34,10 @@ class AppForm extends Component<AppFormProps, AppFormState> {
     console.log(this.state);
   };
 
-  onChange = ({ currentTarget: { value } }: FormEvent<HTMLSelectElement>) => {
+  onChange = ({ currentTarget: { files } }: FormEvent<HTMLInputElement>) => {
     this.setState({
-      item: value,
+      fileList: files,
     });
-  };
-
-  isChecked = (currentItem: string) => {
-    return this.state.item === currentItem;
   };
 
   parks = [
@@ -54,17 +50,13 @@ class AppForm extends Component<AppFormProps, AppFormState> {
    * 渲染
    */
   render() {
+    console.log(this.state);
+
     return (
       <div>
         <form onSubmit={this.onSubmitForm}>
           <div>
-            <select value={this.state.item} onChange={this.onChange}>
-              {this.parks.map((item) => (
-                <option key={item.id} value={item.value}>
-                  {item.value}
-                </option>
-              ))}
-            </select>
+            <input type="file" multiple onChange={this.onChange} />
           </div>
           <pre>→ State: {JSON.stringify(this.state)}</pre>
           <input type="submit" value="提交" />
