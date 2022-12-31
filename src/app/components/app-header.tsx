@@ -53,7 +53,7 @@ class AppHeader extends Component<AppHeaderProps, AppHeaderState> {
 
     return (
       <div className="app-header">
-        <h1 className="title">
+        <h1 className="title" style={{ cursor: 'pointer', fontSize: '24px' }}>
           {name} {emoji}
         </h1>
       </div>
