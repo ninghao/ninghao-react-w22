@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import AppCard from '../../app/components/app-card';
+import AppCard from 'app/components/app-card';
 import './post-index.css';
 
 /**
