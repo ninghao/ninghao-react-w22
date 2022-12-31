@@ -9,14 +9,26 @@ type AppHeaderState = {
 };
 
 class AppHeader extends Component<AppHeaderProps, AppHeaderState> {
+  timer?: number;
+
   constructor(props: AppHeaderProps) {
     super(props);
 
     this.state = {
       emoji: '🌴',
     };
+  }
 
-    window.setInterval(() => this.changeEmoji(), 3000);
+  componentDidMount() {
+    this.timer = window.setInterval(() => this.changeEmoji(), 3000);
+  }
+
+  componentWillUnmount() {
+    window.clearInterval(this.timer);
+  }
+
+  componentDidUpdate() {
+    console.log('AppHeader: componentDidUpdate', this.state.emoji);
   }
 
   // state: AppHeaderState = {
