@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, FormEvent } from 'react';
 import './app-form.css';
 
 /**
@@ -25,11 +25,22 @@ class AppForm extends Component<AppFormProps, AppFormState> {
    */
   state: AppFormState = {};
 
+  onSubmitForm = (event: FormEvent) => {
+    event.preventDefault();
+  };
+
   /**
    * 渲染
    */
   render() {
-    return <div>AppForm</div>;
+    return (
+      <div>
+        <form onSubmit={this.onSubmitForm}>
+          <input type="text" name="content" />
+          <input type="submit" value="提交" />
+        </form>
+      </div>
+    );
   }
 }
 
