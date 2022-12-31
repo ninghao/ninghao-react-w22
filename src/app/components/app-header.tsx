@@ -1,4 +1,5 @@
 import { Component, MouseEvent } from 'react';
+import './app-header.css';
 
 type AppHeaderProps = {
   name: string;
