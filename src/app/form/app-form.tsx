@@ -1,4 +1,4 @@
-import { Component, FormEvent } from 'react';
+import { Component, FormEvent, createRef } from 'react';
 import './app-form.css';
 
 /**
@@ -10,7 +10,7 @@ type AppFormProps = {};
  * 状态类型
  */
 type AppFormState = {
-  fileList: FileList | null;
+  content: string;
 };
 
 /**
@@ -26,7 +26,7 @@ class AppForm extends Component<AppFormProps, AppFormState> {
    * 组件状态
    */
   state: AppFormState = {
-    fileList: null,
+    content: '',
   };
 
   onSubmitForm = (event: FormEvent) => {
@@ -34,9 +34,9 @@ class AppForm extends Component<AppFormProps, AppFormState> {
     console.log(this.state);
   };
 
-  onChange = ({ currentTarget: { files } }: FormEvent<HTMLInputElement>) => {
+  onChange = ({ currentTarget: { value } }: FormEvent<HTMLInputElement>) => {
     this.setState({
-      fileList: files,
+      content: value,
     });
   };
 
@@ -45,6 +45,22 @@ class AppForm extends Component<AppFormProps, AppFormState> {
     { id: 2, value: '黑虎泉' },
     { id: 3, value: '趵突泉' },
   ];
+
+  contentField = createRef<HTMLInputElement>();
+
+  componentDidMount() {
+    window.addEventListener('keydown', this.onKeyDown);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.onKeyDown);
+  }
+
+  onKeyDown = (event: KeyboardEvent) => {
+    if (event.key === 'e' && event.ctrlKey) {
+      this.contentField.current?.focus();
+    }
+  };
 
   /**
    * 渲染
@@ -56,7 +72,12 @@ class AppForm extends Component<AppFormProps, AppFormState> {
       <div>
         <form onSubmit={this.onSubmitForm}>
           <div>
-            <input type="file" multiple onChange={this.onChange} />
+            <input
+              type="text"
+              onChange={this.onChange}
+              value={this.state.content}
+              ref={this.contentField}
+            />
           </div>
           <pre>→ State: {JSON.stringify(this.state)}</pre>
           <input type="submit" value="提交" />
