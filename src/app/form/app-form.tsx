@@ -34,7 +34,7 @@ class AppForm extends Component<AppFormProps, AppFormState> {
     console.log(this.state);
   };
 
-  onContentChange = (event: FormEvent<HTMLInputElement>) => {
+  onContentChange = (event: FormEvent<HTMLTextAreaElement>) => {
     this.setState({ content: event.currentTarget.value });
   };
 
@@ -45,12 +45,13 @@ class AppForm extends Component<AppFormProps, AppFormState> {
     return (
       <div>
         <form onSubmit={this.onSubmitForm}>
-          <input
-            type="text"
-            name="content"
-            value={this.state.content}
-            onChange={this.onContentChange}
-          />
+          <div>
+            <textarea
+              value={this.state.content}
+              onChange={this.onContentChange}
+              placeholder="写点东西"
+            ></textarea>
+          </div>
           <input type="submit" value="提交" />
           <span>→ Content: {this.state.content}</span>
         </form>
