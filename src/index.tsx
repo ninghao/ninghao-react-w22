@@ -1,4 +1,4 @@
-import React from 'react';
+import App from './app/app';
 import ReactDOM from 'react-dom/client';
 
 const root = ReactDOM.createRoot(
@@ -11,14 +11,4 @@ const root = ReactDOM.createRoot(
 //   React.createElement('h1', { className: 'title' }, '宁皓网'),
 // );
 
-const name = '宁皓网';
-
-const element = (
-  <div className="container">
-    <h1 className="title">{name}</h1>
-  </div>
-);
-
-console.log(element);
-
-root.render(element);
+root.render(<App />);
