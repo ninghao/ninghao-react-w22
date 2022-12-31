@@ -20,11 +20,11 @@ class AppHeader extends Component<AppHeaderProps, AppHeaderState> {
   }
 
   componentDidMount() {
-    this.timer = window.setInterval(() => this.changeEmoji(), 3000);
+    // this.timer = window.setInterval(() => this.changeEmoji(), 3000);
   }
 
   componentWillUnmount() {
-    window.clearInterval(this.timer);
+    // window.clearInterval(this.timer);
   }
 
   componentDidUpdate() {
