@@ -26,7 +26,7 @@ class AppForm extends Component<AppFormProps, AppFormState> {
    * 组件状态
    */
   state: AppFormState = {
-    checked: false,
+    checked: true,
   };
 
   onSubmitForm = (event: FormEvent) => {
