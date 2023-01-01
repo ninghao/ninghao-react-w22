@@ -1,4 +1,4 @@
-import { useEffect, useContext, useReducer, useMemo } from 'react';
+import { useEffect, useContext, useReducer, useMemo, useRef } from 'react';
 import { AppContext } from 'app/app';
 import { useEmoji } from './use-emoji';
 import './app-hook.css';
@@ -90,6 +90,9 @@ const AppHook = (props: AppHookProps) => {
 
   const emojiView = useMemo(() => makeEmojiView(emoji), [emoji]);
 
+  const renderCount = useRef(0);
+  renderCount.current = renderCount.current + 1;
+
   return (
     <div className={`app-hook ${theme}`}>
       <h1>
@@ -100,7 +103,12 @@ const AppHook = (props: AppHookProps) => {
         <button onClick={onClickIncrease}>+</button>
         <button onClick={onClickDecrease}>-</button>
       </div>
-      <div>{theme}</div>
+      <div>
+        {theme}
+        <p>
+          <small>共渲染 {renderCount.current} 次</small>
+        </p>
+      </div>
     </div>
   );
 };
