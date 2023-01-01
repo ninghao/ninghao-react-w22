@@ -1,6 +1,7 @@
 import { createContext, Dispatch, SetStateAction, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import AppHeader from './components/app-header';
+import './app.css';
 // import PostIndex from '../post/index/post-index';
 
 type AppContextValue = {

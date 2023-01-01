@@ -4,6 +4,7 @@ import { AppContext } from 'app/app';
 import lightIcon from 'app/icons/light.svg';
 import darkIcon from 'app/icons/dark.svg';
 import './app-header.css';
+import { NavLink } from 'react-router-dom';
 
 type AppHeaderProps = {
   name: string;
@@ -75,8 +76,11 @@ class AppHeader extends Component<AppHeaderProps, AppHeaderState> {
               className="title"
               style={{ cursor: 'pointer', fontSize: '24px' }}
             >
-              {name} {emoji}
+              <NavLink to="/">{name}</NavLink> {emoji}
             </h1>
+            <nav>
+              <NavLink to="/about">关于</NavLink>
+            </nav>
             <div className="content">
               {isLoggedIn && <div>你好，开发者！</div>}
               {isLoggedIn ? logoutAction : loginAction}
