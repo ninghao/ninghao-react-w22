@@ -52,7 +52,6 @@ class AppHeader extends Component<AppHeaderProps, AppHeaderState> {
   };
 
   render() {
-    const { name } = this.props;
     const { emoji, isLoggedIn } = this.state;
 
     const loginAction = (
@@ -76,7 +75,7 @@ class AppHeader extends Component<AppHeaderProps, AppHeaderState> {
               className="title"
               style={{ cursor: 'pointer', fontSize: '24px' }}
             >
-              <NavLink to="/">{name}</NavLink> {emoji}
+              <NavLink to="/">{process.env.REACT_APP_NAME}</NavLink> {emoji}
             </h1>
             <nav>
               <NavLink to="/about">关于</NavLink>
