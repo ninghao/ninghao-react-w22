@@ -1,4 +1,4 @@
-import { useEffect, useContext, useReducer } from 'react';
+import { useEffect, useContext, useReducer, useMemo } from 'react';
 import { AppContext } from 'app/app';
 import { useEmoji } from './use-emoji';
 import './app-hook.css';
@@ -74,10 +74,26 @@ const AppHook = (props: AppHookProps) => {
 
   const { theme } = useContext(AppContext);
 
+  const makeEmojiView = (emoji: string) => {
+    const weather = ['🌤', '🌧', '🌨'];
+    const randomWeather = weather[Math.floor(Math.random() * weather.length)];
+
+    console.log('makeEmojiView', randomWeather, emoji);
+
+    return (
+      <>
+        <div style={{ fontSize: '32px' }}>{randomWeather}</div>
+        {emoji}
+      </>
+    );
+  };
+
+  const emojiView = useMemo(() => makeEmojiView(emoji), [emoji]);
+
   return (
     <div className={`app-hook ${theme}`}>
       <h1>
-        {emoji} <br /> {quantity}
+        {emojiView} <br /> {quantity}
       </h1>
       <button onClick={onClickEmoji}>表情符号</button>
       <div>
