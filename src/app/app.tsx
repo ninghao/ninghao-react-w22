@@ -1,7 +1,7 @@
 import { createContext, Dispatch, SetStateAction, useState } from 'react';
+import { Outlet } from 'react-router-dom';
 import AppHeader from './components/app-header';
 // import PostIndex from '../post/index/post-index';
-import AppHook from './hook/app-hook';
 
 type AppContextValue = {
   theme: string;
@@ -17,9 +17,11 @@ const App = () => {
 
   const element = (
     <AppContext.Provider value={{ theme, setTheme }}>
-      <div className="container">
+      <div className="app">
         <AppHeader />
-        <AppHook />
+        <main>
+          <Outlet />
+        </main>
       </div>
     </AppContext.Provider>
   );
