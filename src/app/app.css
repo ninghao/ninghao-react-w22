@@ -6,3 +6,12 @@ a {
 a.active {
   font-weight: bold;
 }
+
+nav {
+  display: flex;
+  gap: 24px;
+}
+
+nav > a {
+  display: block;
+}

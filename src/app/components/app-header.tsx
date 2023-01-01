@@ -80,6 +80,7 @@ class AppHeader extends Component<AppHeaderProps, AppHeaderState> {
             </h1>
             <nav>
               <NavLink to="/about">关于</NavLink>
+              <NavLink to="/posts">内容</NavLink>
             </nav>
             <div className="content">
               {isLoggedIn && <div>你好，开发者！</div>}
