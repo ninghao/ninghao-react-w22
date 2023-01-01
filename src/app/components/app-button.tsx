@@ -1,4 +1,4 @@
-import { MouseEventHandler, ReactNode } from 'react';
+import { MouseEventHandler, ReactNode, memo } from 'react';
 import './app-button.css';
 
 /**
@@ -14,6 +14,8 @@ type AppButtonProps = {
  * 组件
  */
 const AppButton = ({ children, variant, onClick }: AppButtonProps) => {
+  console.log('AppButton ~~~');
+
   let className = 'app-button';
 
   if (variant) {
@@ -27,4 +29,4 @@ const AppButton = ({ children, variant, onClick }: AppButtonProps) => {
   );
 };
 
-export default AppButton;
+export default memo(AppButton);
