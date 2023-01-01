@@ -14,7 +14,7 @@ type AppButtonProps = {
  * 组件
  */
 const AppButton = ({ children, variant, onClick }: AppButtonProps) => {
-  console.log('AppButton ~~~');
+  // console.log('AppButton ~~~');
 
   let className = 'app-button';
 
