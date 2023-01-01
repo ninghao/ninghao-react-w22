@@ -10,15 +10,22 @@ type AppHookProps = {};
  * 组件
  */
 const AppHook = (props: AppHookProps) => {
-  const [emoji, setEmoji] = useState('🦖');
+  const [emoji, setEmoji] = useState(() => {
+    console.log('useState：设置 emoji 状态的初始值');
+    return '🦖';
+  });
   const [quantity, setQuantity] = useState(5);
 
   const onClickIncrease = () => {
-    setQuantity(quantity + 1);
+    setQuantity((preQuantity) => {
+      return preQuantity + 1;
+    });
   };
 
   const onClickDecrease = () => {
-    setQuantity(quantity - 1);
+    setQuantity((preQuantity) => {
+      return preQuantity - 1;
+    });
   };
 
   const onClickEmoji = () => {
