@@ -1,5 +1,6 @@
 import { useEffect, useContext, useReducer, useMemo, useRef } from 'react';
 import { AppContext } from 'app/app';
+import AppInput from 'app/components/app-input';
 import { useEmoji } from './use-emoji';
 import './app-hook.css';
 
@@ -117,7 +118,7 @@ const AppHook = (props: AppHookProps) => {
         </p>
       </div>
       <div>
-        <input type="text" ref={textInput} />
+        <AppInput ref={textInput} />
       </div>
     </div>
   );
