@@ -5,6 +5,7 @@ import lightIcon from 'app/icons/light.svg';
 import darkIcon from 'app/icons/dark.svg';
 import './app-header.css';
 import { NavLink } from 'react-router-dom';
+import { appConfig } from 'app/app.config';
 
 type AppHeaderProps = {
   name: string;
@@ -75,7 +76,7 @@ class AppHeader extends Component<AppHeaderProps, AppHeaderState> {
               className="title"
               style={{ cursor: 'pointer', fontSize: '24px' }}
             >
-              <NavLink to="/">{process.env.REACT_APP_NAME}</NavLink> {emoji}
+              <NavLink to="/">{appConfig.appName}</NavLink> {emoji}
             </h1>
             <nav>
               <NavLink to="/about">关于</NavLink>
