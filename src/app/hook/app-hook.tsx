@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useEffect, useContext, useReducer } from 'react';
 import { AppContext } from 'app/app';
 import { useEmoji } from './use-emoji';
 import './app-hook.css';
@@ -9,23 +9,59 @@ import './app-hook.css';
 type AppHookProps = {};
 
 /**
+ * 状态类型
+ */
+type AppHookState = {
+  quantity: number;
+};
+
+enum AppHookActionType {
+  Increase = 'increase',
+  Decrease = 'decrease',
+}
+
+type AppHookAction = {
+  type: AppHookActionType;
+  payload: number;
+};
+
+const appHookInitialState: AppHookState = { quantity: 5 };
+
+const appHookReducer = (state: AppHookState, action: AppHookAction) => {
+  const { type, payload } = action;
+
+  switch (type) {
+    case AppHookActionType.Increase:
+      return {
+        ...state,
+        quantity: state.quantity + payload,
+      };
+    case AppHookActionType.Decrease:
+      return {
+        ...state,
+        quantity: state.quantity - payload,
+      };
+    default:
+      return state;
+  }
+};
+
+/**
  * 组件
  */
 const AppHook = (props: AppHookProps) => {
   const [emoji, setEmoji] = useEmoji();
 
-  const [quantity, setQuantity] = useState(5);
+  // const [quantity, setQuantity] = useState(5);
+  const [state, dispatch] = useReducer(appHookReducer, appHookInitialState);
+  const { quantity } = state;
 
   const onClickIncrease = () => {
-    setQuantity((preQuantity) => {
-      return preQuantity + 1;
-    });
+    dispatch({ type: AppHookActionType.Increase, payload: 2 });
   };
 
   const onClickDecrease = () => {
-    setQuantity((preQuantity) => {
-      return preQuantity - 1;
-    });
+    dispatch({ type: AppHookActionType.Decrease, payload: 2 });
   };
 
   const onClickEmoji = () => {
