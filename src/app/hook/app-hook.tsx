@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useEmoji } from './use-emoji';
 import './app-hook.css';
 
 /**
@@ -10,10 +11,7 @@ type AppHookProps = {};
  * 组件
  */
 const AppHook = (props: AppHookProps) => {
-  const [emoji, setEmoji] = useState(() => {
-    console.log('useState：设置 emoji 状态的初始值');
-    return '🦖';
-  });
+  const [emoji, setEmoji] = useEmoji();
 
   const [quantity, setQuantity] = useState(5);
 
@@ -32,14 +30,6 @@ const AppHook = (props: AppHookProps) => {
   const onClickEmoji = () => {
     setEmoji(emoji === '🌲' ? '🦖' : '🌲');
   };
-
-  useEffect(() => {
-    console.log('useEffect: ', emoji);
-
-    return () => {
-      console.log('useEffect: 清理 effect ~~');
-    };
-  }, [emoji]);
 
   useEffect(() => {
     console.log('useEffect: 初次渲染组件');
