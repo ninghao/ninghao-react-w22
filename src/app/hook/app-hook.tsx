@@ -93,6 +93,13 @@ const AppHook = (props: AppHookProps) => {
   const renderCount = useRef(0);
   renderCount.current = renderCount.current + 1;
 
+  const textInput = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    console.log('textInput: ', textInput.current);
+    textInput.current!.focus();
+  });
+
   return (
     <div className={`app-hook ${theme}`}>
       <h1>
@@ -108,6 +115,9 @@ const AppHook = (props: AppHookProps) => {
         <p>
           <small>共渲染 {renderCount.current} 次</small>
         </p>
+      </div>
+      <div>
+        <input type="text" ref={textInput} />
       </div>
     </div>
   );
