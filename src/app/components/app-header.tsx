@@ -1,5 +1,8 @@
 import { Component, MouseEvent } from 'react';
 import AppButton from 'app/components/app-button';
+import { AppContext } from 'app/app';
+import lightIcon from 'app/icons/light.svg';
+import darkIcon from 'app/icons/dark.svg';
 import './app-header.css';
 
 type AppHeaderProps = {
@@ -64,19 +67,38 @@ class AppHeader extends Component<AppHeaderProps, AppHeaderState> {
     );
 
     return (
-      <div className="app-header">
-        <h1
-          onClick={this.changeEmoji}
-          className="title"
-          style={{ cursor: 'pointer', fontSize: '24px' }}
-        >
-          {name} {emoji}
-        </h1>
-        <div className="content">
-          {isLoggedIn && <div>你好，开发者！</div>}
-          {isLoggedIn ? logoutAction : loginAction}
-        </div>
-      </div>
+      <AppContext.Consumer>
+        {({ theme, setTheme }) => (
+          <div className="app-header">
+            <h1
+              onClick={this.changeEmoji}
+              className="title"
+              style={{ cursor: 'pointer', fontSize: '24px' }}
+            >
+              {name} {emoji}
+            </h1>
+            <div className="content">
+              {isLoggedIn && <div>你好，开发者！</div>}
+              {isLoggedIn ? logoutAction : loginAction}
+              <div>
+                {theme === 'light' ? (
+                  <img
+                    src={lightIcon}
+                    alt=""
+                    onClick={() => setTheme!('dark')}
+                  />
+                ) : (
+                  <img
+                    src={darkIcon}
+                    alt=""
+                    onClick={() => setTheme!('light')}
+                  />
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+      </AppContext.Consumer>
     );
   }
 }
