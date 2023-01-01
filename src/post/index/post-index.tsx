@@ -1,6 +1,8 @@
+import { appConfig } from 'app/app.config';
 import { apiHttpClient } from 'app/app.service';
-import { useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { PostList } from 'post/post.type';
+import { useEffect, useState } from 'react';
+import './post-index.css';
 
 /**
  * 属性类型
@@ -15,33 +17,35 @@ const PostIndex = (props: PostIndexProps) => {
     document.title = '内容 - 宁皓网';
   });
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [posts, setPosts] = useState<PostList>([]);
 
   useEffect(() => {
     apiHttpClient.get('posts').then((response) => {
-      console.log(response);
+      setPosts(response.data);
     });
   });
 
-  return (
-    <div>
-      <h1>内容</h1>
-      <div>
+  const postListItems = posts.map((item) => {
+    return (
+      <div key={item.id}>
         <div>
-          <strong>search: </strong>
-          {searchParams.get('search')}
+          <img
+            src={`${appConfig.apiBaseUrl}/files/${item.file.id}/serve?size=thumbnail`}
+            alt={item.title}
+          />
         </div>
-        <input
-          type="text"
-          onChange={({ currentTarget: { value } }) => {
-            if (value) {
-              setSearchParams({ search: value });
-            } else {
-              setSearchParams({});
-            }
-          }}
-        />
+        <div>
+          <div>{item.title}</div>
+          <div>{item.content}</div>
+          <div>- {item.user.name}</div>
+        </div>
       </div>
+    );
+  });
+
+  return (
+    <div className="post-index">
+      <div className="post-list">{postListItems}</div>
     </div>
   );
 };
