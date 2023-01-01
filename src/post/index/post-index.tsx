@@ -1,3 +1,4 @@
+import { apiHttpClient } from 'app/app.service';
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
@@ -15,6 +16,12 @@ const PostIndex = (props: PostIndexProps) => {
   });
 
   const [searchParams, setSearchParams] = useSearchParams();
+
+  useEffect(() => {
+    apiHttpClient.get('posts').then((response) => {
+      console.log(response);
+    });
+  });
 
   return (
     <div>
