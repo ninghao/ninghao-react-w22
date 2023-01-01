@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { AppContext } from 'app/app';
 import { useEmoji } from './use-emoji';
 import './app-hook.css';
 
@@ -35,8 +36,10 @@ const AppHook = (props: AppHookProps) => {
     console.log('useEffect: 初次渲染组件');
   }, []);
 
+  const { theme } = useContext(AppContext);
+
   return (
-    <div className="app-hook">
+    <div className={`app-hook ${theme}`}>
       <h1>
         {emoji} <br /> {quantity}
       </h1>
@@ -45,6 +48,7 @@ const AppHook = (props: AppHookProps) => {
         <button onClick={onClickIncrease}>+</button>
         <button onClick={onClickDecrease}>-</button>
       </div>
+      <div>{theme}</div>
     </div>
   );
 };
