@@ -1,4 +1,5 @@
-import { useEffect } from 'react';
+import { apiHttpClient } from 'app/app.service';
+import { useEffect, useState } from 'react';
 
 /**
  * 属性类型
@@ -13,7 +14,49 @@ const AuthLogin = (props: AuthLoginProps) => {
     document.title = '用户登录 - 宁皓网';
   });
 
-  return <div>AuthLogin</div>;
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
+
+  const login = async () => {
+    if (name && password) {
+      try {
+        const { data } = await apiHttpClient.post('login', { name, password });
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  return (
+    <form onSubmit={(event) => event.preventDefault()}>
+      <div>
+        <input
+          type="text"
+          placeholder="名字"
+          autoComplete="username"
+          value={name}
+          onChange={(event) => {
+            setName(event.currentTarget.value);
+          }}
+        />
+      </div>
+      <div>
+        <input
+          type="password"
+          placeholder="密码"
+          autoComplete="current-password"
+          value={password}
+          onChange={(event) => {
+            setPassword(event.currentTarget.value);
+          }}
+        />
+      </div>
+      <div>
+        <button onClick={login}>登录</button>
+      </div>
+    </form>
+  );
 };
 
 export default AuthLogin;
