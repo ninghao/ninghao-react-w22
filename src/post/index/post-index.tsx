@@ -2,7 +2,9 @@ import { appConfig } from 'app/app.config';
 import { apiHttpClient } from 'app/app.service';
 import { PostList } from 'post/post.type';
 import { useEffect, useState } from 'react';
+import editIcon from 'app/icons/edit.svg';
 import './post-index.css';
+import { Link } from 'react-router-dom';
 
 /**
  * 属性类型
@@ -38,6 +40,13 @@ const PostIndex = (props: PostIndexProps) => {
           <div>{item.title}</div>
           <div>{item.content}</div>
           <div>- {item.user.name}</div>
+          <div>
+            <div>
+              <Link to={`/posts/${item.id}/edit`}>
+                <img src={editIcon} alt="编辑内容" />
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     );
