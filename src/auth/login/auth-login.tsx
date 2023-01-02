@@ -1,5 +1,6 @@
 import { apiHttpClient } from 'app/app.service';
-import { useEffect, useState } from 'react';
+import { AuthContext } from 'auth/auth.provider';
+import { useContext, useEffect, useState } from 'react';
 
 /**
  * 属性类型
@@ -17,11 +18,13 @@ const AuthLogin = (props: AuthLoginProps) => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
 
+  const { setCurrentUser } = useContext(AuthContext);
+
   const login = async () => {
     if (name && password) {
       try {
         const { data } = await apiHttpClient.post('login', { name, password });
-        console.log(data);
+        setCurrentUser!(data);
       } catch (error) {
         console.log(error);
       }

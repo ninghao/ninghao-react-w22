@@ -1,4 +1,10 @@
-import { createContext, ReactNode } from 'react';
+import {
+  createContext,
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  useState,
+} from 'react';
 
 /**
  * 属性类型
@@ -7,16 +13,23 @@ type AuthProviderProps = {
   children: ReactNode;
 };
 
-export const AuthContext = createContext({
-  currentUser: { name: '李白' },
-});
+type CurrentUser = { id: number; name: string; token: string };
+
+type AuthContextValue = {
+  currentUser?: CurrentUser;
+  setCurrentUser?: Dispatch<SetStateAction<CurrentUser | undefined>>;
+};
+
+export const AuthContext = createContext<AuthContextValue>({});
 
 /**
  * 组件
  */
 const AuthProvider = (props: AuthProviderProps) => {
+  const [currentUser, setCurrentUser] = useState<CurrentUser>();
+
   return (
-    <AuthContext.Provider value={{ currentUser: { name: '李白' } }}>
+    <AuthContext.Provider value={{ currentUser, setCurrentUser }}>
       {props.children}
     </AuthContext.Provider>
   );
