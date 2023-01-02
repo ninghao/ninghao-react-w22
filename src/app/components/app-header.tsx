@@ -3,6 +3,8 @@ import { appConfig } from 'app/app.config';
 import addIcon from 'app/icons/add.svg';
 import accountIcon from 'app/icons/account.svg';
 import './app-header.css';
+import { useContext } from 'react';
+import { AuthContext } from 'auth/auth.provider';
 
 /**
  * 属性类型
@@ -13,6 +15,8 @@ type AppHeaderProps = {};
  * 组件
  */
 const AppHeader = (props: AppHeaderProps) => {
+  const { currentUser } = useContext(AuthContext);
+
   return (
     <div className="app-header">
       <h1 className="title">
@@ -29,9 +33,12 @@ const AppHeader = (props: AppHeaderProps) => {
           </Link>
         </div>
         <div>
-          <Link to="/login">
-            <img src={accountIcon} alt="用户登录" />
-          </Link>
+          {currentUser && currentUser.name}
+          {!currentUser && (
+            <Link to="/login">
+              <img src={accountIcon} alt="用户登录" />
+            </Link>
+          )}
         </div>
       </div>
     </div>

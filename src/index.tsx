@@ -1,5 +1,6 @@
 import ReactDOM from 'react-dom/client';
 import AppRouter from 'app/app.router';
+import AppProvider from 'app/app.provider';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -11,4 +12,8 @@ const root = ReactDOM.createRoot(
 //   React.createElement('h1', { className: 'title' }, '宁皓网'),
 // );
 
-root.render(<AppRouter />);
+root.render(
+  <AppProvider>
+    <AppRouter />
+  </AppProvider>,
+);

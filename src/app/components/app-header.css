@@ -11,3 +11,8 @@
   align-items: center;
   gap: 16px;
 }
+
+.app-header > .content a {
+  display: block;
+  line-height: 1;
+}
