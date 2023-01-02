@@ -22,6 +22,7 @@ const PostCreate = (props: PostCreateProps) => {
       try {
         await apiHttpClient.post('posts', { title, content });
         setTitle('');
+        setContent('');
       } catch (error) {
         console.log(error);
       }
