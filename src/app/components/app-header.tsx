@@ -4,8 +4,9 @@ import { AppContext } from 'app/app';
 import lightIcon from 'app/icons/light.svg';
 import darkIcon from 'app/icons/dark.svg';
 import './app-header.css';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { appConfig } from 'app/app.config';
+import addIcon from 'app/icons/add.svg';
 
 type AppHeaderProps = {
   name: string;
@@ -99,6 +100,11 @@ class AppHeader extends Component<AppHeaderProps, AppHeaderState> {
                     onClick={() => setTheme!('light')}
                   />
                 )}
+              </div>
+              <div>
+                <Link to="/create">
+                  <img src={addIcon} alt="添加内容" />
+                </Link>
               </div>
             </div>
           </div>
