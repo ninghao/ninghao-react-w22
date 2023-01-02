@@ -1,3 +1,4 @@
+import { authRoutes } from 'auth/auth.routes';
 import { postRoutes } from 'post/post.routes';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import App from './app';
@@ -21,6 +22,7 @@ const AppRouter = (props: AppRouterProps) => {
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
           {postRoutes}
+          {authRoutes}
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
