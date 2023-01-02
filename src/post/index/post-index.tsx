@@ -3,6 +3,7 @@ import { apiHttpClient } from 'app/app.service';
 import { PostList } from 'post/post.type';
 import { useEffect, useState } from 'react';
 import editIcon from 'app/icons/edit.svg';
+import deleteIcon from 'app/icons/delete.svg';
 import './post-index.css';
 import { Link } from 'react-router-dom';
 
@@ -27,6 +28,14 @@ const PostIndex = (props: PostIndexProps) => {
     });
   });
 
+  const deletePost = async (postId: number) => {
+    try {
+      await apiHttpClient.delete(`posts/${postId}`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const postListItems = posts.map((item) => {
     return (
       <div key={item.id}>
@@ -45,6 +54,15 @@ const PostIndex = (props: PostIndexProps) => {
               <Link to={`/posts/${item.id}/edit`}>
                 <img src={editIcon} alt="编辑内容" />
               </Link>
+            </div>
+            <div>
+              <img
+                src={deleteIcon}
+                alt="删除内容"
+                onClick={() => {
+                  deletePost(item.id);
+                }}
+              />
             </div>
           </div>
         </div>
