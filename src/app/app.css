@@ -15,3 +15,32 @@ nav {
 nav > a {
   display: block;
 }
+
+input[type='text'],
+textarea {
+  border: 1px solid #eaeaea;
+  padding: 8px;
+  border-radius: 5px;
+  font-size: 14px;
+  margin-bottom: 16px;
+  min-width: 300px;
+}
+
+button {
+  border: none;
+  outline: none;
+  background: #ededed;
+  padding: 6px 16px;
+  font-size: 14px;
+  border-radius: 5px;
+  color: #666;
+  cursor: pointer;
+}
+
+button:hover {
+  color: #000;
+}
+
+button:active {
+  opacity: 0.8;
+}
