@@ -1,5 +1,5 @@
 import { apiHttpClient } from 'app/app.service';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 /**
  * 属性类型
@@ -18,11 +18,17 @@ const PostCreate = (props: PostCreateProps) => {
   const [content, setContent] = useState('');
   const [file, setFile] = useState<File | null>();
   const [imagePreviewUrl, setImagePreviewUrl] = useState('');
+  const fileInput = useRef<HTMLInputElement>(null);
 
   const createPost = async () => {
-    if (title && content) {
+    if (title && content && file) {
       try {
-        await apiHttpClient.post('posts', { title, content });
+        const {
+          data: { insertId: postId },
+        } = await apiHttpClient.post('posts', { title, content });
+
+        await createFile(file, postId);
+
         setTitle('');
         setContent('');
       } catch (error) {
@@ -37,6 +43,25 @@ const PostCreate = (props: PostCreateProps) => {
     reader.onload = (event) => {
       setImagePreviewUrl(event.target?.result as string);
     };
+  };
+
+  const createFile = async (file: File, postId: number) => {
+    const formData = new FormData();
+
+    formData.append('file', file);
+
+    try {
+      await apiHttpClient.post(`files?post=${postId}`, formData);
+
+      setFile(null);
+      setImagePreviewUrl('');
+
+      if (fileInput.current) {
+        fileInput.current.value = '';
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -54,6 +79,7 @@ const PostCreate = (props: PostCreateProps) => {
       </div>
       <div>
         <input
+          ref={fileInput}
           type="file"
           accept="image/png, image/jpeg, image/jpg"
           onChange={({ currentTarget: { files } }) => {
