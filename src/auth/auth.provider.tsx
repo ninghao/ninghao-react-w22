@@ -1,8 +1,10 @@
+import { getStorage, setStorage, StorageKey } from 'app/app.service';
 import {
   createContext,
   Dispatch,
   ReactNode,
   SetStateAction,
+  useEffect,
   useState,
 } from 'react';
 
@@ -27,6 +29,20 @@ export const AuthContext = createContext<AuthContextValue>({});
  */
 const AuthProvider = (props: AuthProviderProps) => {
   const [currentUser, setCurrentUser] = useState<CurrentUser>();
+
+  useEffect(() => {
+    if (currentUser !== undefined) {
+      setStorage(StorageKey.currentUser, currentUser);
+    } else {
+      const currentUserFromStorage = getStorage<CurrentUser>(
+        StorageKey.currentUser,
+      );
+
+      if (currentUserFromStorage) {
+        setCurrentUser(currentUserFromStorage);
+      }
+    }
+  }, [currentUser]);
 
   return (
     <AuthContext.Provider value={{ currentUser, setCurrentUser }}>
