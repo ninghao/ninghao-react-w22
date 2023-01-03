@@ -74,7 +74,21 @@ const PostCreate = (props: PostCreateProps) => {
   };
 
   return (
-    <div>
+    <div
+      onDragOver={(event) => {
+        event.preventDefault();
+      }}
+      onDrop={(event) => {
+        event.preventDefault();
+
+        const file = event.dataTransfer.files[0];
+
+        if (file) {
+          setFile(file);
+          createImagePreview(file);
+        }
+      }}
+    >
       <div>
         {imagePreviewUrl && (
           <div>
