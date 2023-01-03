@@ -1,4 +1,5 @@
 import { apiHttpClient } from 'app/app.service';
+import AppButton from 'app/components/app-button';
 import { useEffect, useRef, useState } from 'react';
 
 /**
@@ -87,7 +88,16 @@ const PostCreate = (props: PostCreateProps) => {
         {imageUploadProgress && <div>{imageUploadProgress}%</div>}
       </div>
       <div>
+        <AppButton
+          variant="bordered"
+          onClick={() => {
+            fileInput.current?.click();
+          }}
+        >
+          选择图像文件
+        </AppButton>
         <input
+          hidden
           ref={fileInput}
           type="file"
           accept="image/png, image/jpeg, image/jpg"
