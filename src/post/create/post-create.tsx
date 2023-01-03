@@ -19,6 +19,9 @@ const PostCreate = (props: PostCreateProps) => {
   const [file, setFile] = useState<File | null>();
   const [imagePreviewUrl, setImagePreviewUrl] = useState('');
   const fileInput = useRef<HTMLInputElement>(null);
+  const [imageUploadProgress, setImageUploadProgress] = useState<number | null>(
+    null,
+  );
 
   const createPost = async () => {
     if (title && content && file) {
@@ -51,10 +54,15 @@ const PostCreate = (props: PostCreateProps) => {
     formData.append('file', file);
 
     try {
-      await apiHttpClient.post(`files?post=${postId}`, formData);
+      await apiHttpClient.post(`files?post=${postId}`, formData, {
+        onUploadProgress: ({ loaded, total }) => {
+          setImageUploadProgress(Math.round((loaded * 100) / total!));
+        },
+      });
 
       setFile(null);
       setImagePreviewUrl('');
+      setImageUploadProgress(null);
 
       if (fileInput.current) {
         fileInput.current.value = '';
@@ -76,6 +84,7 @@ const PostCreate = (props: PostCreateProps) => {
             />
           </div>
         )}
+        {imageUploadProgress && <div>{imageUploadProgress}%</div>}
       </div>
       <div>
         <input
