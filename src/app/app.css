@@ -3,6 +3,10 @@ a {
   text-decoration: none;
 }
 
+img {
+  display: block;
+}
+
 a.active {
   font-weight: bold;
 }

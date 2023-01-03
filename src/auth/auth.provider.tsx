@@ -25,9 +25,12 @@ type CurrentUser = { id: number; name: string; token: string };
 type AuthContextValue = {
   currentUser?: CurrentUser;
   setCurrentUser?: Dispatch<SetStateAction<CurrentUser | undefined>>;
+  logout: Function;
 };
 
-export const AuthContext = createContext<AuthContextValue>({});
+export const AuthContext = createContext<AuthContextValue>({
+  logout() {},
+});
 
 /**
  * 组件
@@ -51,8 +54,14 @@ const AuthProvider = (props: AuthProviderProps) => {
     }
   }, [currentUser]);
 
+  const logout = () => {
+    setStorage(StorageKey.currentUser, '');
+    setCurrentUser(undefined);
+    setAuthHeader('');
+  };
+
   return (
-    <AuthContext.Provider value={{ currentUser, setCurrentUser }}>
+    <AuthContext.Provider value={{ currentUser, setCurrentUser, logout }}>
       {props.children}
     </AuthContext.Provider>
   );

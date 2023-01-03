@@ -5,6 +5,7 @@ import accountIcon from 'app/icons/account.svg';
 import './app-header.css';
 import { useContext } from 'react';
 import { AuthContext } from 'auth/auth.provider';
+import logoutIcon from 'app/icons/logout.svg';
 
 /**
  * 属性类型
@@ -15,7 +16,7 @@ type AppHeaderProps = {};
  * 组件
  */
 const AppHeader = (props: AppHeaderProps) => {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, logout } = useContext(AuthContext);
 
   return (
     <div className="app-header">
@@ -32,6 +33,11 @@ const AppHeader = (props: AppHeaderProps) => {
             <img src={addIcon} alt="添加内容" />
           </Link>
         </div>
+        {currentUser && (
+          <div>
+            <img src={logoutIcon} alt="退出登录" onClick={() => logout()} />
+          </div>
+        )}
         <div>
           {currentUser && currentUser.name}
           {!currentUser && (
