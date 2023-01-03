@@ -26,7 +26,7 @@ const PostIndex = (props: PostIndexProps) => {
     apiHttpClient.get('posts').then((response) => {
       setPosts(response.data);
     });
-  });
+  }, []);
 
   const deletePost = async (postId: number) => {
     try {
