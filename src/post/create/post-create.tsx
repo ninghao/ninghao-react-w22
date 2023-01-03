@@ -17,6 +17,7 @@ const PostCreate = (props: PostCreateProps) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [file, setFile] = useState<File | null>();
+  const [imagePreviewUrl, setImagePreviewUrl] = useState('');
 
   const createPost = async () => {
     if (title && content) {
@@ -30,8 +31,27 @@ const PostCreate = (props: PostCreateProps) => {
     }
   };
 
+  const createImagePreview = (file: File) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (event) => {
+      setImagePreviewUrl(event.target?.result as string);
+    };
+  };
+
   return (
     <div>
+      <div>
+        {imagePreviewUrl && (
+          <div>
+            <img
+              style={{ maxWidth: 318, marginBottom: 16 }}
+              src={imagePreviewUrl}
+              alt="图像预览"
+            />
+          </div>
+        )}
+      </div>
       <div>
         <input
           type="file"
@@ -39,8 +59,10 @@ const PostCreate = (props: PostCreateProps) => {
           onChange={({ currentTarget: { files } }) => {
             if (files && files[0]) {
               setFile(files[0]);
+              createImagePreview(files[0]);
             } else {
               setFile(null);
+              setImagePreviewUrl('');
             }
           }}
         />
