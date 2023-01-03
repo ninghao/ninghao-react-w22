@@ -31,6 +31,10 @@ textarea {
   min-width: 300px;
 }
 
+input[type='file'] {
+  margin-bottom: 16px;
+}
+
 button {
   border: none;
   outline: none;

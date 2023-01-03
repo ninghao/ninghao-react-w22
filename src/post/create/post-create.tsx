@@ -16,6 +16,7 @@ const PostCreate = (props: PostCreateProps) => {
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [file, setFile] = useState<File | null>();
 
   const createPost = async () => {
     if (title && content) {
@@ -31,6 +32,19 @@ const PostCreate = (props: PostCreateProps) => {
 
   return (
     <div>
+      <div>
+        <input
+          type="file"
+          accept="image/png, image/jpeg, image/jpg"
+          onChange={({ currentTarget: { files } }) => {
+            if (files && files[0]) {
+              setFile(files[0]);
+            } else {
+              setFile(null);
+            }
+          }}
+        />
+      </div>
       <div>
         <input
           type="text"
