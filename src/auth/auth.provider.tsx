@@ -1,4 +1,9 @@
-import { getStorage, setStorage, StorageKey } from 'app/app.service';
+import {
+  getStorage,
+  setAuthHeader,
+  setStorage,
+  StorageKey,
+} from 'app/app.service';
 import {
   createContext,
   Dispatch,
@@ -33,6 +38,7 @@ const AuthProvider = (props: AuthProviderProps) => {
   useEffect(() => {
     if (currentUser !== undefined) {
       setStorage(StorageKey.currentUser, currentUser);
+      setAuthHeader(currentUser.token);
     } else {
       const currentUserFromStorage = getStorage<CurrentUser>(
         StorageKey.currentUser,
@@ -40,6 +46,7 @@ const AuthProvider = (props: AuthProviderProps) => {
 
       if (currentUserFromStorage) {
         setCurrentUser(currentUserFromStorage);
+        setAuthHeader(currentUserFromStorage.token);
       }
     }
   }, [currentUser]);
